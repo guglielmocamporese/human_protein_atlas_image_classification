@@ -18,9 +18,6 @@ class MyDataGenerator(Sequence):
         self.train_dir = train_dir
         
         self.on_epoch_end()
-        
-    def __iter__(self):
-        return self
 
     def __len__(self):
         return self.n_batches
@@ -28,7 +25,6 @@ class MyDataGenerator(Sequence):
     def __getitem__(self, n_batch):
         if self.mode=='train':
             x_batch, y_batch = self.get_batch(n_batch)
-            self.n_batch = (n_batch + 1) % self.n_batches
             return x_batch, y_batch
         
         if self.model=='valid':
@@ -39,7 +35,6 @@ class MyDataGenerator(Sequence):
         if self.mode=='test':
             if self.n_batch < self.n_batches:
                 x_batch, y_batch = self.get_batch(n_batch)
-                self.n_batch+=1
                 return x_batch, y_batch
             else:
                 raise StopIteration

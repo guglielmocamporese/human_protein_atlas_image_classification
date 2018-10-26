@@ -8,12 +8,17 @@ import os
 def install_packets():
     os.system('pip install kaggle')
     os.system('pip install imgaug')
+
+    clear_output(wait=True)
     return
 
 def download_dataset():
     '''
         This function is used to download and manage the dataset in the colab envoirment.
     '''
+    # Install All The Packets
+    install_packets()
+
     # File Configuration
     os.system('mkdir ~/.kaggle')
     os.system('cp human_protein_atlas_image_classification/kaggle.json ~/.kaggle/')

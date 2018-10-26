@@ -8,9 +8,9 @@ Focal Loss
 '''
 def focal_loss(gamma=2, alpha=0.25):
     def focal_loss_fixed(y_true, y_pred):
-        alpha_t = y_true*alpha + (K.ones_like(y_true)-y_true)*alpha
-        p_t = y_true*y_pred + (K.ones_like(y_true)-y_true)*(K.ones_like(y_true)-y_pred) + K.epsilon()
-        FL = - alpha_t * K.pow((K.ones_like(y_true)-p_t),gamma) * K.log(p_t)
+        alpha_t = y_true*alpha + (1-y_true)*(1-alpha)
+        p_t = y_true*y_pred + (1-y_true)*(1-y_pred) + K.epsilon()
+        FL = - alpha_t * K.pow((1-p_t),gamma) * K.log(p_t)
         return K.mean(FL)
     return focal_loss_fixed
 

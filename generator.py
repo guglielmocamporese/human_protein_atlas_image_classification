@@ -1,8 +1,9 @@
 import numpy as np
 from hpaic2.utilities import *
+from keras.utils import Sequence
 
 # Generators
-class MyDataGenerator():
+class MyDataGenerator(Sequence):
     def __init__(self, df, data_dir, batch_size=32, mode='train', shuffle=True, seed=0, img_mode='rgby', target_size=512, train_dir=True):
         self.df = df
         self.data_dir = data_dir
@@ -12,7 +13,6 @@ class MyDataGenerator():
         self.seed = seed
         self.batch_size = batch_size
         self.n_batches = int(np.ceil(1.*self.n_samples/self.batch_size))
-        self.n_batch = 0
         self.img_mode = img_mode
         self.target_size = target_size
         self.train_dir = train_dir
@@ -21,11 +21,14 @@ class MyDataGenerator():
         
     def __iter__(self):
         return self
+
+    def __len__(self):
+        return self.n_batches
         
-    def __next__(self):
+    def __getitem__(self, n_batch):
         if self.mode=='train':
-            x_batch, y_batch = self.get_batch(self.n_batch)
-            self.n_batch = (self.n_batch + 1) % self.n_batches
+            x_batch, y_batch = self.get_batch(n_batch)
+            self.n_batch = (n_batch + 1) % self.n_batches
             return x_batch, y_batch
         
         if self.model=='valid':
@@ -35,7 +38,7 @@ class MyDataGenerator():
         
         if self.mode=='test':
             if self.n_batch < self.n_batches:
-                x_batch, y_batch = self.get_batch(self.n_batch)
+                x_batch, y_batch = self.get_batch(n_batch)
                 self.n_batch+=1
                 return x_batch, y_batch
             else:

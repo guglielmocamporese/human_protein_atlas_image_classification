@@ -3,32 +3,33 @@ from zipfile import ZipFile
 from keras.preprocessing.image import load_img
 from io import BytesIO
 from IPython.display import clear_output
+import os
 
 def download_dataset():
     '''
         This function is used to download and manage the dataset in the colab envoirment.
     '''
     # File Configuration
-    !mkdir ~/.kaggle
-    !cp kaggle.json ~/.kaggle/
+    os.system('mkdir ~/.kaggle')
+    os.system('cp kaggle.json ~/.kaggle/')
 
-    !chmod 600 ~/.kaggle/kaggle.json
+    os.system('chmod 600 ~/.kaggle/kaggle.json')
 
     # Download Dataset
-    !kaggle competitions download -c human-protein-atlas-image-classification
+    os.system('kaggle competitions download -c human-protein-atlas-image-classification')
 
     # Create Folders
-    !mkdir dataset
+    os.system('mkdir dataset')
 
     # Manage Dataset
-    !mv train.zip dataset
-    !mv test.zip dataset
-    !mv train.csv dataset
-    !mv sample_submission.csv dataset
+    os.system('mv train.zip dataset')
+    os.system('mv test.zip dataset')
+    os.system('mv train.csv dataset')
+    os.system('mv sample_submission.csv dataset')
 
     # Remove Useless Data
-    !rm sample_data/*
-    !rmdir sample_data
+    os.system('rm sample_data/*')
+    os.system('rmdir sample_data')
 
     clear_output(wait=True)
     return

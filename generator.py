@@ -1,5 +1,5 @@
 import numpy as np
-from utilities import *
+from hpaic2.utilities import *
 
 # Generators
 class MyDataGenerator():

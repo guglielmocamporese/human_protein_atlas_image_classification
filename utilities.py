@@ -5,6 +5,11 @@ from io import BytesIO
 from IPython.display import clear_output
 import os
 
+def install_packets():
+    os.system('pip install kaggle')
+    os.system('pip install imgaug')
+    return
+
 def download_dataset():
     '''
         This function is used to download and manage the dataset in the colab envoirment.

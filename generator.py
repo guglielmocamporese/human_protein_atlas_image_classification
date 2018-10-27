@@ -1,5 +1,5 @@
 import numpy as np
-from hpaic6.utilities import *
+from hpaic.utilities import *
 from keras.utils import Sequence
 
 # Generators

@@ -4,7 +4,7 @@ from keras.utils import Sequence
 
 # Generators
 class MyDataGenerator(Sequence):
-    def __init__(self, df, data_dir, batch_size=32, mode='train', shuffle=True, seed=0, img_mode='rgby', target_size=512, train_dir=True):
+    def __init__(self, df, data_dir, batch_size=32, mode='train', shuffle=True, seed=0, img_mode='rgby', target_size=512, train_dir=True, kernel='colab'):
         self.df = df
         self.data_dir = data_dir
         self.mode = mode
@@ -16,6 +16,7 @@ class MyDataGenerator(Sequence):
         self.img_mode = img_mode
         self.target_size = target_size
         self.train_dir = train_dir
+        self.kernel = kernel
         
         self.on_epoch_end()
 
@@ -41,6 +42,12 @@ class MyDataGenerator(Sequence):
             
             
     def get_batch(self, n_batch):
+        read_img_fun = None
+        if self.kernel=='colab':
+            read_img_fun = read_img_from_zip
+        if self.kernel=='kaggle':
+            read_img_fun = read_img
+
         idx_batch = []
         if n_batch < self.n_batches-1:
             idx_batch = np.copy(self.idx[n_batch*self.batch_size:(n_batch+1)*self.batch_size])

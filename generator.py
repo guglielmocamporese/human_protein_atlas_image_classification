@@ -55,7 +55,7 @@ class MyDataGenerator(Sequence):
             idx_batch = np.copy(self.idx[n_batch*self.batch_size:])
             self.on_epoch_end()
         
-        x_batch = np.array([read_img_from_zip(self.data_dir, img_id, self.target_size, mode=self.img_mode, train=self.train_dir)
+        x_batch = np.array([read_img_fun(self.data_dir, img_id, self.target_size, mode=self.img_mode, train=self.train_dir)
                             for img_id in self.df['Id'].values[idx_batch]])
         y_batch = np.stack(self.df['target_oh'].values[idx_batch], axis=0)
         return x_batch, y_batch

@@ -21,7 +21,7 @@ def download_dataset():
 
     # File Configuration
     os.system('mkdir ~/.kaggle')
-    os.system('cp human_protein_atlas_image_classification/kaggle.json ~/.kaggle/')
+    os.system('cp hpaic/kaggle.json ~/.kaggle/')
 
     os.system('chmod 600 ~/.kaggle/kaggle.json')
 

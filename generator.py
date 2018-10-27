@@ -28,7 +28,7 @@ class MyDataGenerator(Sequence):
             x_batch, y_batch = self.get_batch(n_batch)
             return x_batch, y_batch
         
-        if self.model=='valid':
+        if self.mode=='valid':
             x_batch, y_batch = self.get_batch(0)
             self.on_epoch_end()
             return x_batch, y_batch

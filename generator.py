@@ -58,7 +58,7 @@ class MyDataGenerator(Sequence):
         x_batch = np.array([read_img_fun(self.data_dir, img_id, self.target_size, mode=self.img_mode, train=self.train_dir)
                             for img_id in self.df['Id'].values[idx_batch]])
 
-        if self.mode=='train' or self.mode=='valid'
+        if self.mode=='train' or self.mode=='valid':
             y_batch = np.stack(self.df['target_oh'].values[idx_batch], axis=0)
             return x_batch, y_batch
         if self.model=='test':

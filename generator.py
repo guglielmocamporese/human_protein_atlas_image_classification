@@ -61,7 +61,7 @@ class MyDataGenerator(Sequence):
         if self.mode=='train' or self.mode=='valid':
             y_batch = np.stack(self.df['target_oh'].values[idx_batch], axis=0)
             return x_batch, y_batch
-        if self.model=='test':
+        if self.mode=='test':
             return x_batch
         
         
